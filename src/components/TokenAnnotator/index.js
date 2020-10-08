@@ -18,19 +18,33 @@ const TokenAnnotator = ({ tokens, onChange }) => {
     setAllTokens(tokensArray);
   }, [tokens]);
 
-  const getTokenClasses = (isHighlighted) => (isHighlighted ? "yellow-bg" : "");
+  const getTokenClasses = (isHighlighted) => (isHighlighted ? "blue-bg" : "");
 
   const handleOnMouseUp = () => {
     const selection = window.getSelection();
-
-    if (isSelectionEmpty(selection)) return;
-
-    const selectedText = selection.toString();
 
     let startIndex = selection.anchorNode.parentElement.getAttribute(
       "data-index"
     );
     let endIndex = selection.focusNode.parentElement.getAttribute("data-index");
+
+    if (isSelectionEmpty(selection)) {
+      console.log("ONE CLICK");
+      console.log("start, end: ", startIndex, endIndex);
+      const tokenIndex = startIndex;
+
+      // check if tokenIndex exists somewhere in tokensData in between start and end and delete whole input
+
+      // console.log("tokensData inside: ", tokensData);
+
+      let newTokens = [...allTokens];
+      newTokens[tokenIndex].isHighlighted = false;
+      setAllTokens(newTokens);
+      return;
+    }
+
+    const selectedText = selection.toString();
+
     selection.removeAllRanges();
     if (!/\S/.test(selectedText)) return;
 
@@ -55,7 +69,7 @@ const TokenAnnotator = ({ tokens, onChange }) => {
 
     let newTokens = [...allTokens];
     for (let i = startIndex; i <= endIndex; i++) {
-      newTokens[i].isHighlighted = true;
+      newTokens[i].isHighlighted = !newTokens[i].isHighlighted;
     }
     setAllTokens(newTokens);
   };
