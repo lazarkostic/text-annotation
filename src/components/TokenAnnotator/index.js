@@ -6,19 +6,12 @@ import { isSelectionEmpty, isBetween } from "../../utils/index";
 import "./tokenAnnotator.css";
 
 const TokenAnnotator = ({ tokens, onChange }) => {
-  const [allTokens, setAllTokens] = useState([]);
-
   const [tokensData, setTokensData] = useState([]);
 
-  useEffect(() => {
-    const tokensArray = tokens.map((token) => ({
-      text: token,
-      isHighlighted: false,
-    }));
-    setAllTokens(tokensArray);
-  }, [tokens]);
+  const isTokenLabeled = (index) =>
+    tokensData.find((obj) => isBetween(index, obj.start, obj.end));
 
-  const getTokenClasses = (isHighlighted) => (isHighlighted ? "blue-bg" : "");
+  const getTokenClasses = (index) => (isTokenLabeled(index) ? "blue-bg" : "");
 
   const handleOnMouseUp = () => {
     const selection = window.getSelection();
@@ -29,17 +22,12 @@ const TokenAnnotator = ({ tokens, onChange }) => {
     let endIndex = selection.focusNode.parentElement.getAttribute("data-index");
 
     if (isSelectionEmpty(selection)) {
-      console.log("ONE CLICK");
-      console.log("start, end: ", startIndex, endIndex);
-      const tokenIndex = startIndex;
-
-      // check if tokenIndex exists somewhere in tokensData in between start and end and delete whole input
-
-      // console.log("tokensData inside: ", tokensData);
-
-      let newTokens = [...allTokens];
-      newTokens[tokenIndex].isHighlighted = false;
-      setAllTokens(newTokens);
+      let newTokensData = [...tokensData];
+      setTokensData(
+        newTokensData.filter(
+          (obj) => !isBetween(startIndex, obj.start, obj.end)
+        )
+      );
       return;
     }
 
@@ -60,28 +48,18 @@ const TokenAnnotator = ({ tokens, onChange }) => {
       {
         start: startIndex,
         end: endIndex,
-        tokens: allTokens
-          .filter((token, index) => isBetween(index, startIndex, endIndex))
-          .map((t) => t.text),
+        tokens: tokens.filter((token, index) =>
+          isBetween(index, startIndex, endIndex)
+        ),
         tag: "INITIAL",
       },
     ]);
-
-    let newTokens = [...allTokens];
-    for (let i = startIndex; i <= endIndex; i++) {
-      newTokens[i].isHighlighted = !newTokens[i].isHighlighted;
-    }
-    setAllTokens(newTokens);
   };
 
   const renderText = () => {
-    return allTokens.map((token, index) => (
-      <span
-        data-index={index}
-        className={getTokenClasses(token.isHighlighted)}
-        key={index}
-      >
-        {token.text}{" "}
+    return tokens.map((token, index) => (
+      <span data-index={index} className={getTokenClasses(index)} key={index}>
+        {token}{" "}
       </span>
     ));
   };
