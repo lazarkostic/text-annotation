@@ -56,17 +56,24 @@ const TokenAnnotator = ({ tokens, onChange }) => {
     ]);
   };
 
-  const renderText = () => {
+  const renderLabel = (index) => {
+    const token = isTokenLabeled(index);
+    if (token && parseInt(token.end) === index) {
+      return token.tag;
+    }
+  };
+
+  const renderTextOutput = () => {
     return tokens.map((token, index) => (
       <span data-index={index} className={getTokenClasses(index)} key={index}>
-        {token}{" "}
+        {token} {renderLabel(index)}
       </span>
     ));
   };
 
   return (
     <div className="" onMouseUp={() => handleOnMouseUp()}>
-      {renderText()}
+      {renderTextOutput()}
     </div>
   );
 };
