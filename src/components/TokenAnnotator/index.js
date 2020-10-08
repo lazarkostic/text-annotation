@@ -8,6 +8,10 @@ import "./tokenAnnotator.css";
 const TokenAnnotator = ({ tokens, onChange }) => {
   const [tokensData, setTokensData] = useState([]);
 
+  useEffect(() => {
+    onChange(tokensData);
+  }, [tokensData]);
+
   const isTokenLabeled = (index) =>
     tokensData.find((obj) => isBetween(index, obj.start, obj.end));
 
@@ -78,8 +82,13 @@ const TokenAnnotator = ({ tokens, onChange }) => {
   );
 };
 
+TokenAnnotator.defaultProps = {
+  onChange: () => {},
+};
+
 TokenAnnotator.propTypes = {
-  tokens: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func,
+  tokens: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TokenAnnotator;
