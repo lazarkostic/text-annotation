@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import TokenAnnotator from "./components/TokenAnnotator";
+
+const App = () => {
+  const TEXT = "This is some text to try out, new things.";
+  const tokensArray = TEXT.split(" ");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TokenAnnotator tokens={tokensArray} />
     </div>
   );
-}
+};
 
 export default App;
