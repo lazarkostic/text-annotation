@@ -1,0 +1,23 @@
+name: Run tests
+
+on: [pull_request]
+      
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+      
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Lint files
+        run: yarn lint
+
+      # Disabled as currently there are no tests
+      # - name: Run tests
+      #   run: yarn test 
+      # Test that build works
+      - name: Build production bundle
+        run: yarn build

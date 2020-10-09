@@ -1,4 +1,4 @@
-const colors = ["#78e395", "#60a5e6", "#e3c954", "#ed61cf", "#f29472"];
+const colors = ['#78e395', '#60a5e6', '#e3c954', '#ed61cf', '#f29472'];
 
 export const getRandomColor = () =>
   colors[Math.floor(Math.random() * colors.length)];

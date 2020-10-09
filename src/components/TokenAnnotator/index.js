@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import { isSelectionEmpty, isBetween } from "../../utils/index";
+import { isSelectionEmpty, isBetween } from '../../utils/index';
 
-import "./tokenAnnotator.css";
+import './tokenAnnotator.css';
 
 const TokenAnnotator = ({ tokens, onChange }) => {
   const [tokensData, setTokensData] = useState([]);
@@ -15,18 +15,18 @@ const TokenAnnotator = ({ tokens, onChange }) => {
   const isTokenLabeled = (index) =>
     tokensData.find((obj) => isBetween(index, obj.start, obj.end));
 
-  const getTokenClasses = (index) => (isTokenLabeled(index) ? "blue-bg" : "");
+  const getTokenClasses = (index) => (isTokenLabeled(index) ? 'blue-bg' : '');
 
   const handleOnMouseUp = () => {
     const selection = window.getSelection();
 
     let startIndex = selection.anchorNode.parentElement.getAttribute(
-      "data-index"
+      'data-index'
     );
-    let endIndex = selection.focusNode.parentElement.getAttribute("data-index");
+    let endIndex = selection.focusNode.parentElement.getAttribute('data-index');
 
     if (isSelectionEmpty(selection)) {
-      let newTokensData = [...tokensData];
+      const newTokensData = [...tokensData];
       setTokensData(
         newTokensData.filter(
           (obj) => !isBetween(startIndex, obj.start, obj.end)
@@ -55,7 +55,7 @@ const TokenAnnotator = ({ tokens, onChange }) => {
         tokens: tokens.filter((token, index) =>
           isBetween(index, startIndex, endIndex)
         ),
-        tag: "INITIAL",
+        tag: 'INITIAL',
       },
     ]);
   };
