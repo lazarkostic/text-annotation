@@ -29,7 +29,6 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/iframe-has-title': 0,
     'react/no-unescaped-entities': 0,
-    'react/jsx-filename-extension': 0,
     'react/jsx-wrap-multilines': 0,
     'react/button-has-type': 0,
     'no-param-reassign': 0,
