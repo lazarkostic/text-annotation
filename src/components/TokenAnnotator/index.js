@@ -62,9 +62,10 @@ const TokenAnnotator = ({ tokens, onChange }) => {
 
   const renderLabel = (index) => {
     const token = isTokenLabeled(index);
-    if (token && parseInt(token.end) === index) {
+    if (token && parseInt(token.end, 1) === index) {
       return token.tag;
     }
+    return null;
   };
 
   const renderTextOutput = () => {
