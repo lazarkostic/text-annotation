@@ -7,9 +7,9 @@ const App = () => {
   const tokensArray = TEXT.split(' ');
 
   return (
-    <div>
+    <>
       <TokenAnnotator tokens={tokensArray} />
-    </div>
+    </>
   );
 };
 
