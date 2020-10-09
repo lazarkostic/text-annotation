@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { isSelectionEmpty, isBetween } from '../../utils/index';
+import { isSelectionEmpty, isBetween } from '../../utils';
 
 import './tokenAnnotator.css';
 
@@ -10,7 +10,7 @@ const TokenAnnotator = ({ tokens, onChange }) => {
 
   useEffect(() => {
     onChange(tokensData);
-  }, [tokensData]);
+  }, [tokensData, onChange]);
 
   const isTokenLabeled = (index) =>
     tokensData.find((obj) => isBetween(index, obj.start, obj.end));

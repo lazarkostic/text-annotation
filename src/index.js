@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import TokenAnnotator from './lib/TokenAnnotator';
+
+const TEXT = 'This is some text to try out, new things.';
+const tokensArray = TEXT.split(' ');
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TokenAnnotator tokens={tokensArray} />
   </React.StrictMode>,
   document.getElementById('root')
 );
