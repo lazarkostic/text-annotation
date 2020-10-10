@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TokenAnnotator from './lib/TokenAnnotator2';
+import TokenAnnotator from 'lib/TokenAnnotator2';
 
 ReactDOM.render(
   <React.StrictMode>

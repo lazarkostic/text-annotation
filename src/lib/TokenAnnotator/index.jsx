@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { isSelectionEmpty, isBetween } from '../../utils';
+import { isSelectionEmpty, isBetween } from 'utils';
 
 import './tokenAnnotator.css';
 
