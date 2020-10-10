@@ -9,6 +9,9 @@ module.exports = {
         }
     }
   },
+  globals: {
+    cy: true
+  },
   env: {
     "browser": true,
     "commonjs": true,

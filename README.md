@@ -17,3 +17,8 @@ To lint files `yarn lint --fix`
 
 This is a simple tool for text annotation in React!
 
+## tests
+
+To run tests: 
+- Terminal 1: `yarn start`
+- Terminal 2: `yarn cypress`
