@@ -14,7 +14,7 @@ const tokens = 'When Gregor Samsa woke up one morning from unsettling dreams, he
 ReactDOM.render(
   <React.StrictMode>
     <TokenAnnotator2 />
-    <TokenAnnotator tokens={tokens}/>
+    <TokenAnnotator />
   </React.StrictMode>,
   document.getElementById('root')
 );

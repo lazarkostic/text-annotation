@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-
-import { isSelectionEmpty, isBetween } from 'utils';
+import useTokenAnnotator from './useTokenAnnotator';
 
 const Root = styled.div`
   margin: auto;
@@ -20,10 +18,12 @@ const TokenContainer = styled.div`
 const Token = styled.span`
 display: inline-flex;
   padding: 2px 2px; 
+  cursor: text;
   ${(p) =>
     p.isLabeled &&
     css`
       background: #add8e6;
+      cursor: pointer;
     `};
 `;
 
@@ -38,57 +38,8 @@ const LabelContainer = styled.div`
 margin-bottom: 20px;
 `;
 
-const TokenAnnotator = ({ tokens }) => {
-  const [tokensData, setTokensData] = useState([]);
-
-  const isTokenLabeled = (index) => tokensData.find((obj) => isBetween(index, obj.start, obj.end));
-
-  const handleOnMouseUp = () => {
-    const selection = window.getSelection();
-
-    let startIndex = selection.anchorNode.parentElement.getAttribute(
-      'data-index'
-    ) || selection.anchorNode.parentElement.getAttribute(
-      'data-label'
-    );
-    let endIndex = selection.focusNode.parentElement.getAttribute('data-index');
-
-    console.log("start, end: ", startIndex, endIndex);
-
-    if (isSelectionEmpty(selection)) {
-      const newTokensData = [...tokensData];
-      setTokensData(
-        newTokensData.filter(
-          (obj) => !isBetween(startIndex, obj.start, obj.end)
-        )
-      );
-      return;
-    }
-
-    const selectedText = selection.toString();
-
-    selection.removeAllRanges();
-    if (!/\S/.test(selectedText)) return;
-
-    const isBackwards = startIndex > endIndex;
-    if (isBackwards) {
-      const temp = startIndex;
-      startIndex = endIndex;
-      endIndex = temp;
-    }
-
-    setTokensData([
-      ...tokensData,
-      {
-        start: startIndex,
-        end: endIndex,
-        tokens: tokens.filter((token, index) =>
-          isBetween(index, startIndex, endIndex)
-        ),
-        tag: 'INITIAL',
-      },
-    ]);
-  };
+export default function TokenAnnotator() {
+  const { tokens, handleOnMouseUp, isTokenLabeled } = useTokenAnnotator();
 
   const renderLabel = (index) => {
     const token = isTokenLabeled(index);
@@ -121,12 +72,3 @@ const TokenAnnotator = ({ tokens }) => {
     </Root>
   );
 };
-
-TokenAnnotator.defaultProps = {
-};
-
-TokenAnnotator.propTypes = {
-  tokens: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
-
-export default TokenAnnotator;
