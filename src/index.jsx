@@ -1,14 +1,20 @@
 import React from 'react';
 import debug from 'debug';
 import ReactDOM from 'react-dom';
-import TokenAnnotator from 'components/TokenAnnotator2';
+import TokenAnnotator2 from 'components/TokenAnnotator2';
+import TokenAnnotator from 'components/TokenAnnotator';
+
 
 // Enable debugger
 debug.enable(process.env.REACT_APP_DEBUG);
 
+const tokens = 'When Gregor Samsa woke up one morning from unsettling dreams, he found himself changed in his bed into a monstrous vermin.'
+.split(' ');
+
 ReactDOM.render(
   <React.StrictMode>
-    <TokenAnnotator />
+    <TokenAnnotator2 />
+    <TokenAnnotator tokens={tokens}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
