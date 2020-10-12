@@ -22,7 +22,7 @@ display: inline-flex;
   ${(p) =>
     p.isLabeled &&
     css`
-      background: #add8e6;
+      background: #FFE184;
       cursor: pointer;
     `};
 `;
@@ -35,11 +35,33 @@ const Label = styled.div`
 `
 
 const LabelContainer = styled.div`
+display: flex;
+padding: 10px 5px;
 margin-bottom: 20px;
+background: #593ECF;
+`;
+
+const LabelItem = styled.div`
+cursor: pointer;
+border-radius: 5px;
+border: 1px solid;
+padding: 2px 4px;
+border-color: white;
+font-size: 16px;
+margin: 0 4px;
+background: #593ECF;
+color: white;
+${(p) =>
+  p.isSelected &&
+  css`
+    background: white;
+    color:#593ECF;
+    border-color: 
+  `};
 `;
 
 export default function TokenAnnotator() {
-  const { tokens, handleOnMouseUp, isTokenLabeled } = useTokenAnnotator();
+  const { tokens, label, labels, handleOnMouseUp, handleLabelChange, isTokenLabeled } = useTokenAnnotator();
 
   const renderLabel = (index) => {
     const token = isTokenLabeled(index);
@@ -60,11 +82,11 @@ export default function TokenAnnotator() {
   return (
     <Root>
       <LabelContainer>
-      {/* {labels.map((l, idx) => (
-          <Label key={idx} label={l} style={{ marginRight: 3 }}>
+      {labels.map((l, idx) => (
+          <LabelItem key={idx} isSelected={l.name===label.name} onClick={() => handleLabelChange(l)}>
             {l.name}
-          </Label>
-        ))} */}
+          </LabelItem>
+        ))}
       </LabelContainer>
       <TokenContainer className="" onMouseUp={() => handleOnMouseUp()}>
         {renderTextOutput()}

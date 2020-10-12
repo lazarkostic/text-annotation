@@ -9,10 +9,23 @@ export default function useTokenAnnotator() {
   const tokens = `When Gregor Samsa woke up one morning from unsettling dreams, he found himself changed in his bed into a monstrous vermin.`.split(
     ' '
   );
+
+  const labels = [
+    {
+      name: 'PERSON',
+    },
+    {
+      name: 'ANIMAL',
+    },
+  ];
+
+  const [label, setLabel] = useState(labels[0]);
   const [tokensData, setTokensData] = useState([]);
 
   const isTokenLabeled = (index) =>
     tokensData.find((obj) => isBetween(index, obj.start, obj.end));
+
+  const handleLabelChange = (newLabel) => setLabel(newLabel);
 
   const handleOnMouseUp = () => {
     const selection = window.getSelection();
@@ -54,10 +67,17 @@ export default function useTokenAnnotator() {
         tokens: tokens.filter((token, index) =>
           isBetween(index, startIndex, endIndex)
         ),
-        tag: 'INITIAL',
+        tag: label.name,
       },
     ]);
   };
 
-  return { tokens, handleOnMouseUp, isTokenLabeled };
+  return {
+    labels,
+    label,
+    handleLabelChange,
+    tokens,
+    handleOnMouseUp,
+    isTokenLabeled,
+  };
 }
