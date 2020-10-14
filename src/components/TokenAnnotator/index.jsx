@@ -16,14 +16,21 @@ const TokenContainer = styled.div`
 `;
 
 const Token = styled.div`
-display: inline-flex;
+  display: inline-flex;
   padding: 2px 2px; 
+  margin: 2px 0;
   cursor: text;
   ${(p) =>
     p.isLabeled &&
     css`
       background: #FFE184;
       cursor: pointer;
+      padding: 2px 4px;
+    `};
+  ${(p) =>
+    p.isFirst &&
+    css`
+      margin-left: 4px;
     `};
 `;
 
@@ -72,9 +79,14 @@ export default function TokenAnnotator() {
     return null;
   };
 
+  const isFirstLabeled = (index) => {
+    const token = isTokenLabeled(index);
+    return token && parseInt(token.start) === index;
+  }
+
   const renderTextOutput = () => {
     return tokens.map((token, index) => (
-      <Token data-index={index} isLabeled={isTokenLabeled(index)} key={index}>
+      <Token data-index={index} isLabeled={isTokenLabeled(index)} isFirst={isFirstLabeled(index)} key={index}>
         {token} {renderLabel(index)}
       </Token>
     ));
