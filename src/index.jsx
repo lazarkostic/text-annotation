@@ -1,7 +1,7 @@
 import React from 'react';
 import debug from 'debug';
 import ReactDOM from 'react-dom';
-import TokenAnnotator2 from 'components/TokenAnnotator2';
+// import TokenAnnotator2 from 'components/TokenAnnotator2';
 import TokenAnnotator from 'components/TokenAnnotator';
 
 
@@ -10,7 +10,7 @@ debug.enable(process.env.REACT_APP_DEBUG);
 
 ReactDOM.render(
   <React.StrictMode>
-    <TokenAnnotator2 />
+    {/* <TokenAnnotator2 /> */}
     <TokenAnnotator />
   </React.StrictMode>,
   document.getElementById('root')

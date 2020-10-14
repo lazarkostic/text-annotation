@@ -15,7 +15,7 @@ const Root = styled.div`
 const TokenContainer = styled.div`
 `;
 
-const Token = styled.span`
+const Token = styled.div`
 display: inline-flex;
   padding: 2px 2px; 
   cursor: text;
@@ -32,6 +32,7 @@ const Label = styled.div`
     font-size: 9px;
     font-weight: bold;
     padding: 0 2px;
+    color: #593ECF;
 `
 
 const LabelContainer = styled.div`

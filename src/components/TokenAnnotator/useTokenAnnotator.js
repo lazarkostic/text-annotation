@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { isSelectionEmpty, isBetween } from 'utils';
 
-const log = require('debug')('ta:components:token-annotator2');
+const log = require('debug')('ta:components:token-annotator');
 
 export default function useTokenAnnotator() {
   // TODO: This will be passed as prop
@@ -34,6 +34,9 @@ export default function useTokenAnnotator() {
       selection.anchorNode.parentElement.getAttribute('data-index') ||
       selection.anchorNode.parentElement.getAttribute('data-label');
     let endIndex = selection.focusNode.parentElement.getAttribute('data-index');
+
+    startIndex = parseInt(startIndex, 10);
+    endIndex = parseInt(endIndex, 10);
 
     log('start, end: ', startIndex, endIndex);
 
